@@ -22,7 +22,7 @@ namespace unit_converter {
     Unit *UnitData::find(const std::string &str) {
         auto it = UnitData::m.find(str);
 
-        if (it == UnitData::m.find(str)) {
+        if (it == UnitData::m.end()) {
             throw std::runtime_error("Unit not found");
         }
 
