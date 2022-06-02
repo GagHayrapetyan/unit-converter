@@ -15,11 +15,11 @@ namespace unit_converter {
             {"mol",  new Unit("mol", "mole", {.amount_of_substance=1})},
             {"cd",   new Unit("cd", "candela", {.intensity=1})},
 
-            {"inch", new Unit("in", "inch", 2.54E-2, 0, {.length = 1})},
-            {"km",   new Unit("km", "kilometer", 1E+3, 0, {.length = 1})}
+            {"inch", new Unit("in", "inch", {.length = 1}, 2.54E-2)},
+            {"km",   new Unit("km", "kilometer", {.length = 1}, 1E+3)}
     };
 
-    Unit * UnitData::find(const std::string &str) {
+    Unit *UnitData::find(const std::string &str) {
         auto it = UnitData::m.find(str);
 
         if (it == UnitData::m.find(str)) {
