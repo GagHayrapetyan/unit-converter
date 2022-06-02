@@ -6,6 +6,7 @@
 #include <string>
 #include <functional>
 #include <vector>
+#include <ostream>
 
 #ifndef UNIT_CONVERTER_UNIT_H
 #define UNIT_CONVERTER_UNIT_H
@@ -13,13 +14,13 @@
 namespace unit_converter {
 
     struct SIUnits {
-        uint8_t temperature = 0;
-        uint8_t length = 0;
-        uint8_t electric_current = 0;
-        uint8_t time = 0;
-        uint8_t mass = 0;
-        uint8_t amount_of_substance = 0;
-        uint8_t intensity = 0;
+        int temperature = 0;
+        int length = 0;
+        int electric_current = 0;
+        int time = 0;
+        int mass = 0;
+        int amount_of_substance = 0;
+        int intensity = 0;
 
         SIUnits operator+=(const SIUnits &obj);
 
@@ -30,6 +31,8 @@ namespace unit_converter {
         bool operator==(const SIUnits &obj) const;
 
         bool operator!=(const SIUnits &obj) const;
+
+        friend std::ostream &operator<<(std::ostream &os, const SIUnits &obj);
     };
 
 

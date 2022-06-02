@@ -57,6 +57,11 @@ namespace unit_converter {
         return !operator==(obj);
     }
 
+    std::ostream &operator<<(std::ostream &os, const SIUnits &obj) {
+        return os << obj.temperature << " " << obj.mass << " " << obj.amount_of_substance << " " << obj.electric_current
+                  << " " << obj.intensity << " " << obj.length << " " << obj.time << std::endl;
+    }
+
 
     Unit::Unit(const std::string &symbol,
                const std::string &name,
@@ -113,6 +118,7 @@ namespace unit_converter {
     }
 
     bool MultiUnit::operator==(const MultiUnit &obj) {
+//        std::cout << _si_unit << obj._si_unit;
         return _si_unit == obj._si_unit;
     }
 
