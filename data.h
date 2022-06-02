@@ -4,7 +4,7 @@
 
 #include <map>
 #include <iostream>
-#include <tuple>
+#include <exception>
 
 #include "unit.h"
 
@@ -18,7 +18,7 @@ namespace unit_converter {
     public:
         static std::map<std::string, Unit *> m;
 
-        static std::tuple<bool,Unit*> find(const std::string &str);
+        static Unit *find(const std::string &str);
     };
 
 }

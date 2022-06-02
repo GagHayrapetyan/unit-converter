@@ -19,13 +19,13 @@ namespace unit_converter {
             {"km",   new Unit("km", "kilometer", 1E+3, 0, {.length = 1})}
     };
 
-    std::tuple<bool, Unit *> UnitData::find(const std::string &str) {
+    Unit * UnitData::find(const std::string &str) {
         auto it = UnitData::m.find(str);
 
-        if (it != UnitData::m.find(str)) {
-            return {false, it->second};
-        } else {
-            return {false, nullptr};
+        if (it == UnitData::m.find(str)) {
+            throw std::runtime_error("Unit not found");
         }
+
+        return it->second;
     }
 }
