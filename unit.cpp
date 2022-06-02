@@ -58,6 +58,15 @@ namespace unit_converter {
 
     }
 
+    Unit::Unit(std::string symbol, std::string name, SIUnits si_units)
+            : _name(name),
+              _symbol(symbol),
+              _coefficient(1),
+              _offset(0),
+              _si_units(si_units) {
+
+    }
+
     Unit::Unit(const Unit &obj) : _name(obj._name),
                                   _symbol(obj._symbol),
                                   _coefficient(obj._coefficient),
@@ -65,5 +74,6 @@ namespace unit_converter {
                                   _si_units(obj._si_units) {
 
     }
+
 
 }

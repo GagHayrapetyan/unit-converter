@@ -35,9 +35,13 @@ namespace unit_converter {
     public:
         Unit(std::string symbol,
              std::string name,
-             double coefficient,
-             double offset,
-             SIUnits si_units);
+             double coefficient = 1,
+             double offset = 0,
+             SIUnits si_units = {});
+
+        Unit(std::string symbol,
+             std::string name,
+             SIUnits si_units = {});
 
         Unit(const Unit &obj);
 
