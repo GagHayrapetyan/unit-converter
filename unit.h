@@ -5,6 +5,7 @@
 #include <iostream>
 #include <string>
 #include <functional>
+#include <vector>
 
 #ifndef UNIT_CONVERTER_UNIT_H
 #define UNIT_CONVERTER_UNIT_H
@@ -55,11 +56,13 @@ namespace unit_converter {
              SIUnits si_unit,
              double coefficient = 1);
 
+
+
     private:
         std::string _symbol;
         std::string _name;
         SIUnits _si_unit;
-        std::function<void(double &, Direction)> _converter_func;
+        std::vector<std::function<void(double &, Direction)>> _converter_funcs;
 
         static std::function<void(double &, Direction)> _converter(double coefficient);
     };

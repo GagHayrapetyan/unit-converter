@@ -76,7 +76,7 @@ namespace unit_converter {
                std::function<void(double &, Direction)> func) : _symbol(symbol),
                                                                 _name(name),
                                                                 _si_unit(si_unit),
-                                                                _converter_func(func) {
+                                                                _converter_funcs({func}) {
     }
 
 
