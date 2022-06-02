@@ -4,7 +4,7 @@
 
 #include <iostream>
 #include <string>
-#include <math.h>
+#include <functional>
 
 #ifndef UNIT_CONVERTER_UNIT_H
 #define UNIT_CONVERTER_UNIT_H
@@ -37,6 +37,32 @@ namespace unit_converter {
         bool operator!=(const SIUnits &obj) const;
     };
 
+
+    class Unit {
+    public:
+        enum class Direction {
+            TO_SI,
+            FROM_SI
+        };
+
+        Unit(const std::string &symbol,
+             const std::string &name,
+             SIUnits si_unit,
+             std::function<void(double &, Direction)> func);
+
+        Unit(const std::string &symbol,
+             const std::string &name,
+             SIUnits si_unit,
+             double coefficient = 1);
+
+    private:
+        std::string _symbol;
+        std::string _name;
+        SIUnits _si_unit;
+        std::function<void(double &, Direction)> _converter_func;
+
+        static std::function<void(double &, Direction)> _converter(double coefficient);
+    };
 
 
 }

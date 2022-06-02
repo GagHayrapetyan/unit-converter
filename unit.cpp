@@ -70,7 +70,31 @@ namespace unit_converter {
     }
 
 
+    Unit::Unit(const std::string &symbol,
+               const std::string &name,
+               SIUnits si_unit,
+               std::function<void(double &, Direction)> func) : _symbol(symbol),
+                                                                _name(name),
+                                                                _si_unit(si_unit),
+                                                                _converter_func(func) {
+    }
 
 
+    Unit::Unit(const std::string &symbol,
+               const std::string &name,
+               SIUnits si_unit,
+               double coefficient) : Unit(symbol, name, si_unit, _converter(coefficient)) {
+
+    }
+
+    std::function<void(double &, Unit::Direction)> Unit::_converter(double coefficient) {
+        return [coefficient](double &value, Direction dir) {
+            if (dir == Direction::TO_SI) {
+                value *= coefficient;
+            } else {
+                value /= coefficient;
+            }
+        };
+    }
 
 }
