@@ -4,6 +4,7 @@
 
 #include <map>
 #include <iostream>
+#include <tuple>
 
 #include "unit.h"
 
@@ -13,6 +14,12 @@
 
 namespace unit_converter {
 
+    class UnitData {
+    public:
+        static std::map<std::string, Unit *> m;
+
+        static std::tuple<bool,Unit*> find(const std::string &str);
+    };
 
 }
 

@@ -6,8 +6,7 @@
 
 namespace unit_converter {
 
-    std::map<std::string, Unit *> units_map = {
-            /// International System of Measurement (SI)
+    std::map<std::string, Unit *>  UnitData::m = {
             {"m",    new Unit("m", "meter", {.length=1})},
             {"kg",   new Unit("kg", "kilogram", {.mass=1})},
             {"s",    new Unit("s", "second", {.time=1})},
@@ -17,7 +16,16 @@ namespace unit_converter {
             {"cd",   new Unit("cd", "candela", {.intensity=1})},
 
             {"inch", new Unit("in", "inch", 2.54E-2, 0, {.length = 1})},
-            {"km",   new Unit("km", "kilometer", 1E+3, 0, {.length = 1})},
+            {"km",   new Unit("km", "kilometer", 1E+3, 0, {.length = 1})}
     };
 
+    std::tuple<bool, Unit *> UnitData::find(const std::string &str) {
+        auto it = UnitData::m.find(str);
+
+        if (it != UnitData::m.find(str)) {
+            return {false, it->second};
+        } else {
+            return {false, nullptr};
+        }
+    }
 }
