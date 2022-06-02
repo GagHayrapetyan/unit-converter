@@ -6,7 +6,7 @@
 
 namespace unit_converter {
 
-    std::map<std::string, Unit *>  UnitData::m = {
+    const std::map<std::string, Unit *>  UnitData::m = {
             {"m",    new Unit("m", "meter", {.length=1})},
             {"kg",   new Unit("kg", "kilogram", {.mass=1})},
             {"s",    new Unit("s", "second", {.time=1})},

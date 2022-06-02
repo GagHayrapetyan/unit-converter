@@ -16,7 +16,7 @@ namespace unit_converter {
 
     class UnitData {
     public:
-        static std::map<std::string, Unit *> m;
+        static const std::map<std::string, Unit *> m;
 
         static Unit *find(const std::string &str);
     };
