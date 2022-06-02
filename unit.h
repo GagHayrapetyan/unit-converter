@@ -4,7 +4,7 @@
 
 #include <iostream>
 #include <string>
-
+#include <math.h>
 
 #ifndef UNIT_CONVERTER_UNIT_H
 #define UNIT_CONVERTER_UNIT_H
@@ -20,39 +20,24 @@ namespace unit_converter {
         uint8_t amount_of_substance = 0;
         uint8_t intensity = 0;
 
-        SIUnits operator+(const SIUnits &obj);
+        SIUnits operator+=(const SIUnits &obj);
 
-        SIUnits operator*(const int &num);
+        SIUnits operator-=(const SIUnits &obj);
 
-        SIUnits operator*(const SIUnits &obj) = delete;
+        SIUnits operator*=(const int &num);
+
+        SIUnits operator*=(const SIUnits &obj) = delete;
+
+        SIUnits operator/=(const int &num);
+
+        SIUnits operator/=(const SIUnits &obj) = delete;
 
         bool operator==(const SIUnits &obj) const;
 
         bool operator!=(const SIUnits &obj) const;
     };
 
-    class Unit {
-    public:
-        Unit(std::string symbol,
-             std::string name,
-             double coefficient = 1,
-             double offset = 0,
-             SIUnits si_units = {});
 
-        Unit(std::string symbol,
-             std::string name,
-             SIUnits si_units = {});
-
-        Unit(const Unit &obj);
-
-    private:
-        std::string _symbol;
-        std::string _name;
-        double _coefficient;
-        double _offset;
-
-        SIUnits _si_units;
-    };
 
 }
 

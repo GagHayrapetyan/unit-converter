@@ -7,7 +7,7 @@
 
 namespace unit_converter {
 
-    SIUnits SIUnits::operator+(const SIUnits &obj) {
+    SIUnits SIUnits::operator+=(const SIUnits &obj) {
         temperature += obj.temperature;
         length += obj.length;
         electric_current += obj.electric_current;
@@ -19,7 +19,19 @@ namespace unit_converter {
         return *this;
     }
 
-    SIUnits SIUnits::operator*(const int &num) {
+    SIUnits SIUnits::operator-=(const SIUnits &obj) {
+        temperature -= obj.temperature;
+        length -= obj.length;
+        electric_current += obj.electric_current;
+        time -= obj.time;
+        mass -= obj.mass;
+        amount_of_substance -= obj.amount_of_substance;
+        intensity -= obj.intensity;
+
+        return *this;
+    }
+
+    SIUnits SIUnits::operator*=(const int &num) {
         temperature *= num;
         length *= num;
         electric_current *= num;
@@ -27,6 +39,18 @@ namespace unit_converter {
         mass *= num;
         amount_of_substance *= num;
         intensity *= num;
+
+        return *this;
+    }
+
+    SIUnits SIUnits::operator/=(const int &num) {
+        temperature *= num * (-1);
+        length *= num * (-1);
+        electric_current *= num * (-1);
+        time *= num * (-1);
+        mass *= num * (-1);
+        amount_of_substance *= num * (-1);
+        intensity *= num * (-1);
 
         return *this;
     }
@@ -46,34 +70,7 @@ namespace unit_converter {
     }
 
 
-    Unit::Unit(std::string symbol,
-               std::string name,
-               double coefficient,
-               double offset,
-               unit_converter::SIUnits si_units) : _name(name),
-                                                   _symbol(symbol),
-                                                   _coefficient(coefficient),
-                                                   _offset(offset),
-                                                   _si_units(si_units) {
 
-    }
-
-    Unit::Unit(std::string symbol, std::string name, SIUnits si_units)
-            : _name(name),
-              _symbol(symbol),
-              _coefficient(1),
-              _offset(0),
-              _si_units(si_units) {
-
-    }
-
-    Unit::Unit(const Unit &obj) : _name(obj._name),
-                                  _symbol(obj._symbol),
-                                  _coefficient(obj._coefficient),
-                                  _offset(obj._offset),
-                                  _si_units(obj._si_units) {
-
-    }
 
 
 }
