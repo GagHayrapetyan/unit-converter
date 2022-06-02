@@ -125,4 +125,41 @@ namespace unit_converter {
     bool MultiUnit::operator!=(const MultiUnit &obj) {
         return !operator==(obj);
     }
+
+    Unit::Direction MultiUnit::_detect_dir(const Unit::Direction &dir, const MultiUnit::Operator &op) {
+        if (dir == Unit::Direction::TO_SI && op == Operator::MULTIPLICATION) {
+            return Unit::Direction::TO_SI;
+        }
+
+        if (dir == Unit::Direction::TO_SI && op == Operator::DIVISION) {
+            return Unit::Direction::FROM_SI;
+        }
+
+        if (dir == Unit::Direction::FROM_SI && op == Operator::MULTIPLICATION) {
+            return Unit::Direction::FROM_SI;
+        }
+
+        if (dir == Unit::Direction::FROM_SI && op == Operator::DIVISION) {
+            return Unit::Direction::TO_SI;
+        }
+
+        return Unit::Direction::TO_SI;
+    }
+
+    void MultiUnit::_convert(double &value,
+                             const std::vector<std::pair<Unit::func_t, Operator>> &f_list,
+                             const Unit::Direction &dir) {
+        for (auto &[f, o]: f_list) {
+            f(value, _detect_dir(dir, o));
+        }
+    }
+
+    double MultiUnit::convert(double value, const MultiUnit &unit) {
+        _convert(value, _converter_funcs, Unit::Direction::TO_SI);
+        _convert(value, unit._converter_funcs, Unit::Direction::FROM_SI);
+
+        return value;
+    }
+
+
 }

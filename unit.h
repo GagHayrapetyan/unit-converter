@@ -88,6 +88,14 @@ namespace unit_converter {
 
         bool operator!=(const MultiUnit &obj);
 
+        static Unit::Direction _detect_dir(const Unit::Direction &dir, const Operator &op);
+
+        static void _convert(double &value,
+                      const std::vector<std::pair<Unit::func_t, Operator>> &f_list,
+                      const Unit::Direction &dir);
+
+        double convert(double value, const MultiUnit &unit);
+
     private:
         SIUnits _si_unit;
         std::vector<std::pair<Unit::func_t, Operator>> _converter_funcs;
