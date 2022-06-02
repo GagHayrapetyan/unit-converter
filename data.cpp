@@ -16,7 +16,8 @@ namespace unit_converter {
             {"cd",   new Unit("cd", "candela", {.intensity=1})},
 
             {"inch", new Unit("in", "inch", {.length = 1}, 2.54E-2)},
-            {"km",   new Unit("km", "kilometer", {.length = 1}, 1E+3)}
+            {"km",   new Unit("km", "kilometer", {.length = 1}, 1E+3)},
+            {"h",    new Unit("h", "hour", {.time = 1}, 3600)},
     };
 
     Unit *UnitData::find(const std::string &str) {
