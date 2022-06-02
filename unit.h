@@ -25,13 +25,7 @@ namespace unit_converter {
 
         SIUnits operator-=(const SIUnits &obj);
 
-        SIUnits operator*=(const int &num);
-
-        SIUnits operator*=(const SIUnits &obj) = delete;
-
-        SIUnits operator/=(const int &num);
-
-        SIUnits operator/=(const SIUnits &obj) = delete;
+        SIUnits pow(const int &num);
 
         bool operator==(const SIUnits &obj) const;
 
@@ -56,13 +50,19 @@ namespace unit_converter {
              SIUnits si_unit,
              double coefficient = 1);
 
+        double convert(double value);
 
+        double convert(double value, const Unit &unit);
 
     private:
         std::string _symbol;
         std::string _name;
         SIUnits _si_unit;
         std::vector<std::function<void(double &, Direction)>> _converter_funcs;
+
+        static void _convert(double &value,
+                             const std::vector<std::function<void(double &, Direction)>> &funcs,
+                             Direction dir);
 
         static std::function<void(double &, Direction)> _converter(double coefficient);
     };

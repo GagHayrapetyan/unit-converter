@@ -31,26 +31,14 @@ namespace unit_converter {
         return *this;
     }
 
-    SIUnits SIUnits::operator*=(const int &num) {
-        temperature *= num;
-        length *= num;
-        electric_current *= num;
-        time *= num;
-        mass *= num;
-        amount_of_substance *= num;
-        intensity *= num;
-
-        return *this;
-    }
-
-    SIUnits SIUnits::operator/=(const int &num) {
-        temperature *= num * (-1);
-        length *= num * (-1);
-        electric_current *= num * (-1);
-        time *= num * (-1);
-        mass *= num * (-1);
-        amount_of_substance *= num * (-1);
-        intensity *= num * (-1);
+    SIUnits SIUnits::pow(const int &num) {
+        temperature += num;
+        length += num;
+        electric_current += num;
+        time += num;
+        mass += num;
+        amount_of_substance += num;
+        intensity += num;
 
         return *this;
     }
@@ -96,5 +84,27 @@ namespace unit_converter {
             }
         };
     }
+
+    void Unit::_convert(double &value,
+                        const std::vector<std::function<void(double &, Direction)>> &funcs,
+                        Direction dir) {
+        for (auto &i: funcs) {
+            i(value, dir);
+        }
+    }
+
+    double Unit::convert(double value) {
+        _convert(value, _converter_funcs, Direction::TO_SI);
+
+        return value;
+    }
+
+    double Unit::convert(double value, const Unit &unit) {
+        _convert(value, _converter_funcs, Direction::TO_SI);
+        _convert(value, unit._converter_funcs, Direction::FROM_SI);
+
+        return value;
+    }
+
 
 }
