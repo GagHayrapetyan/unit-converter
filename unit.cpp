@@ -61,10 +61,10 @@ namespace unit_converter {
     Unit::Unit(const std::string &symbol,
                const std::string &name,
                SIUnits si_unit,
-               std::function<void(double &, Direction)> func) : _symbol(symbol),
-                                                                _name(name),
-                                                                _si_unit(si_unit),
-                                                                _converter_funcs({func}) {
+               Unit::func_t func) : _symbol(symbol),
+                                    _name(name),
+                                    _si_unit(si_unit),
+                                    _converter_funcs(func) {
     }
 
 
@@ -75,9 +75,9 @@ namespace unit_converter {
 
     }
 
-    std::function<void(double &, Unit::Direction)> Unit::_converter(double coefficient) {
-        return [coefficient](double &value, Direction dir) {
-            if (dir == Direction::TO_SI) {
+    Unit::func_t Unit::_converter(double coefficient) {
+        return [coefficient](double &value, Direction op) {
+            if (op == Direction::TO_SI) {
                 value *= coefficient;
             } else {
                 value /= coefficient;
@@ -85,26 +85,38 @@ namespace unit_converter {
         };
     }
 
-    void Unit::_convert(double &value,
-                        const std::vector<std::function<void(double &, Direction)>> &funcs,
-                        Direction dir) {
-        for (auto &i: funcs) {
-            i(value, dir);
-        }
+
+    MultiUnit::MultiUnit() : _si_unit({}),
+                             _converter_funcs({}) {
+
     }
 
-    double Unit::convert(double value) {
-        _convert(value, _converter_funcs, Direction::TO_SI);
+    MultiUnit MultiUnit::operator*=(const Unit &obj) {
+        _si_unit += obj._si_unit;
+        _converter_funcs.emplace_back(obj._converter_funcs, Operator::MULTIPLICATION);
 
-        return value;
+        return *this;
     }
 
-    double Unit::convert(double value, const Unit &unit) {
-        _convert(value, _converter_funcs, Direction::TO_SI);
-        _convert(value, unit._converter_funcs, Direction::FROM_SI);
+    MultiUnit MultiUnit::operator/=(const Unit &obj) {
+        _si_unit -= obj._si_unit;
+        _converter_funcs.emplace_back(obj._converter_funcs, Operator::DIVISION);
 
-        return value;
+        return *this;
     }
 
+    MultiUnit &MultiUnit::operator=(const Unit &obj) {
+        _si_unit = obj._si_unit;
+        _converter_funcs.emplace_back(obj._converter_funcs, Operator::MULTIPLICATION);
 
+        return *this;
+    }
+
+    bool MultiUnit::operator==(const MultiUnit &obj) {
+        return _si_unit == obj._si_unit;
+    }
+
+    bool MultiUnit::operator!=(const MultiUnit &obj) {
+        return !operator==(obj);
+    }
 }

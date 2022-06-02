@@ -40,33 +40,55 @@ namespace unit_converter {
             FROM_SI
         };
 
+        typedef std::function<void(double &, Direction)> func_t;
+
         Unit(const std::string &symbol,
              const std::string &name,
              SIUnits si_unit,
-             std::function<void(double &, Direction)> func);
+             func_t func);
 
         Unit(const std::string &symbol,
              const std::string &name,
              SIUnits si_unit,
              double coefficient = 1);
 
-        double convert(double value);
-
-        double convert(double value, const Unit &unit);
+        Unit(const Unit &obj) = default;
 
     private:
         std::string _symbol;
         std::string _name;
         SIUnits _si_unit;
-        std::vector<std::function<void(double &, Direction)>> _converter_funcs;
+        func_t _converter_funcs;
 
-        static void _convert(double &value,
-                             const std::vector<std::function<void(double &, Direction)>> &funcs,
-                             Direction dir);
+        static func_t _converter(double coefficient);
 
-        static std::function<void(double &, Direction)> _converter(double coefficient);
+        friend class MultiUnit;
     };
 
+
+    class MultiUnit {
+    public:
+        enum class Operator {
+            MULTIPLICATION,
+            DIVISION
+        };
+
+        MultiUnit();
+
+        MultiUnit &operator=(const Unit &obj);
+
+        MultiUnit operator*=(const Unit &obj);
+
+        MultiUnit operator/=(const Unit &obj);
+
+        bool operator==(const MultiUnit &obj);
+
+        bool operator!=(const MultiUnit &obj);
+
+    private:
+        SIUnits _si_unit;
+        std::vector<std::pair<Unit::func_t, Operator>> _converter_funcs;
+    };
 
 }
 
