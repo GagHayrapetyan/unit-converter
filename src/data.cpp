@@ -31,6 +31,30 @@ namespace unit_converter {
             {"h",    new Unit("h", "hour",
                               {.temperature=0, .length=0, .electric_current=0, .time=1, .mass=0, .amount_of_substance=0, .intensity=0},
                               3600)},
+            {"Hz",   new Unit("Hz", "hertz",
+                              {.temperature=0, .length=0, .electric_current=0, .time=-1, .mass=0, .amount_of_substance=0, .intensity=0})},
+            {"N",    new Unit("N", "newton",
+                              {.temperature=0, .length=1, .electric_current=0, .time=-2, .mass=1, .amount_of_substance=0, .intensity=0})},
+            {"Pa",   new Unit("Pa", "pascal",
+                              {.temperature=0, .length=-1, .electric_current=0, .time=-2, .mass=1, .amount_of_substance=0, .intensity=0})},
+            {"°C",   new Unit("°C", "celsius",
+                              {.temperature=1, .length=0, .electric_current=0, .time=0, .mass=0, .amount_of_substance=0, .intensity=0},
+                              [](double &v, Unit::Direction dir) {
+                                  if (dir == Unit::Direction::TO_SI) {
+                                      v += 273.15;
+                                  } else {
+                                      v -= 273.15;
+                                  }
+                              })},
+            {"°F",   new Unit("°F", "fahrenheit",
+                              {.temperature=1, .length=0, .electric_current=0, .time=0, .mass=0, .amount_of_substance=0, .intensity=0},
+                              [](double &v, Unit::Direction dir) {
+                                  if (dir == Unit::Direction::TO_SI) {
+                                      v = double((v - 32) * 5) / 9 + 273.15;
+                                  } else {
+                                      v = double((v - 273.15) * 9) / 5 + 32;
+                                  }
+                              })},
     };
 
     Unit *UnitData::find(const std::string &str) {
