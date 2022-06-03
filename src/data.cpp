@@ -59,11 +59,29 @@ namespace unit_converter {
         return it->second;
     }
 
-    void UnitData::add_new_unit(std::string symbol, std::string name, SIUnits si_unit, Unit::func_t func) {
-        UnitData::_unit_data.insert({symbol, new Unit(symbol, name, si_unit, func)});
+    bool UnitData::add_new_unit(std::string symbol, std::string name, SIUnits si_unit, Unit::func_t func) {
+        if (!_is_exist(symbol)) {
+            UnitData::_unit_data.insert({symbol, new Unit(symbol, name, si_unit, func)});
+
+            return true;
+        }
+
+        return false;
     }
 
-    void UnitData::add_new_unit(std::string symbol, std::string name, SIUnits si_unit, double coefficient) {
-        UnitData::_unit_data.insert({symbol, new Unit(symbol, name, si_unit, coefficient)});
+    bool UnitData::add_new_unit(std::string symbol, std::string name, SIUnits si_unit, double coefficient) {
+        if (!_is_exist(symbol)) {
+            UnitData::_unit_data.insert({symbol, new Unit(symbol, name, si_unit, coefficient)});
+
+            return true;
+        }
+
+        return false;
+    }
+
+    bool UnitData::_is_exist(const std::string &symbol) {
+        auto it = UnitData::_unit_data.find(symbol);
+
+        return it != UnitData::_unit_data.end();
     }
 }

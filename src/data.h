@@ -19,13 +19,15 @@ namespace unit_converter {
     private:
         static std::map<std::string, Unit *> _unit_data;
 
+        static bool _is_exist(const std::string &symbol);
+
     public:
-        static void add_new_unit(std::string symbol,
+        static bool add_new_unit(std::string symbol,
                                  std::string name,
                                  SIUnits si_unit,
                                  Unit::func_t func);
 
-        static void add_new_unit(std::string symbol,
+        static bool add_new_unit(std::string symbol,
                                  std::string name,
                                  SIUnits si_unit,
                                  double coefficient);
