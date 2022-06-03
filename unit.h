@@ -88,7 +88,7 @@ namespace unit_converter {
 
         bool operator!=(const MultiUnit &obj);
 
-        double convert(double value, const MultiUnit &unit);
+        double convert(double value, Unit::Direction dir);
 
     private:
         SIUnits _si_unit;
@@ -99,8 +99,6 @@ namespace unit_converter {
         static void _convert(double &value,
                              const std::vector<std::pair<Unit::func_t, Operator>> &f_list,
                              const Unit::Direction &dir);
-
-        void _is_same_dimension(const MultiUnit &unit);
     };
 
 }

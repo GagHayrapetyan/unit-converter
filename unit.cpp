@@ -154,19 +154,10 @@ namespace unit_converter {
         }
     }
 
-    double MultiUnit::convert(double value, const MultiUnit &unit) {
-        _is_same_dimension(unit);
-        _convert(value, _converter_funcs, Unit::Direction::TO_SI);
-        _convert(value, unit._converter_funcs, Unit::Direction::FROM_SI);
+    double MultiUnit::convert(double value, Unit::Direction dir) {
+        _convert(value, _converter_funcs, dir);
 
         return value;
     }
-
-    void MultiUnit::_is_same_dimension(const MultiUnit &unit) {
-        if (unit._si_unit != _si_unit) {
-            throw std::runtime_error("Units are not of the same dimension !");
-        }
-    }
-
 
 }
