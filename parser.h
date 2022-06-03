@@ -17,18 +17,21 @@
 
 namespace unit_converter {
 
-    class ParserUnitStr {
+    class UnitParser {
     public:
-        static Unit parse(const std::string &str);
+        static MultiUnit parse(const std::string &str);
 
     private:
-        static std::vector<Unit> _parse_by_mult_syb(const std::string &str);
+        static void _operator(MultiUnit &mu, const Unit& u, const  MultiUnit::Operator &op);
 
-        static Unit _mult_unit(const std::string &str);
+        static void _processing(MultiUnit &u, const std::vector<std::string> &v, MultiUnit::Operator op);
+
+        static std::vector<std::string> _split_by_division(const std::string &str);
+
+        static std::vector<std::string> _split_by_multiplication(const std::string &str);
 
         static std::pair<std::string, std::uint8_t> _parse_degree(const std::string &str);
 
-        static std::vector<std::string> _parse_by_divid_syb(const std::string &str);
     };
 
 }
