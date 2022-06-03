@@ -6,7 +6,7 @@
 
 namespace unit_converter {
 
-    const std::map<std::string, Unit *>  UnitData::m = {
+    std::map<std::string, Unit *>  UnitData::_unit_data = {
             {"m",    new Unit("m", "meter",
                               {.temperature=0, .length=1, .electric_current=0, .time=0, .mass=0, .amount_of_substance=0, .intensity=0})},
             {"kg",   new Unit("kg", "kilogram",
@@ -46,24 +46,24 @@ namespace unit_converter {
                                       v -= 273.15;
                                   }
                               })},
-            {"°F",   new Unit("°F", "fahrenheit",
-                              {.temperature=1, .length=0, .electric_current=0, .time=0, .mass=0, .amount_of_substance=0, .intensity=0},
-                              [](double &v, Unit::Direction dir) {
-                                  if (dir == Unit::Direction::TO_SI) {
-                                      v = double((v - 32) * 5) / 9 + 273.15;
-                                  } else {
-                                      v = double((v - 273.15) * 9) / 5 + 32;
-                                  }
-                              })},
+
     };
 
     Unit *UnitData::find(const std::string &str) {
-        auto it = UnitData::m.find(str);
+        auto it = UnitData::_unit_data.find(str);
 
-        if (it == UnitData::m.end()) {
+        if (it == UnitData::_unit_data.end()) {
             throw Exception("Unit doesn't exist !");
         }
 
         return it->second;
+    }
+
+    void UnitData::add_new_unit(std::string symbol, std::string name, SIUnits si_unit, Unit::func_t func) {
+        UnitData::_unit_data.insert({symbol, new Unit(symbol, name, si_unit, func)});
+    }
+
+    void UnitData::add_new_unit(std::string symbol, std::string name, SIUnits si_unit, double coefficient) {
+        UnitData::_unit_data.insert({symbol, new Unit(symbol, name, si_unit, coefficient)});
     }
 }

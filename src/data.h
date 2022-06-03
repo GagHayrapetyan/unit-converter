@@ -16,8 +16,19 @@
 namespace unit_converter {
 
     class UnitData {
+    private:
+        static std::map<std::string, Unit *> _unit_data;
+
     public:
-        static const std::map<std::string, Unit *> m;
+        static void add_new_unit(std::string symbol,
+                                 std::string name,
+                                 SIUnits si_unit,
+                                 Unit::func_t func);
+
+        static void add_new_unit(std::string symbol,
+                                 std::string name,
+                                 SIUnits si_unit,
+                                 double coefficient);
 
         static Unit *find(const std::string &str);
     };
