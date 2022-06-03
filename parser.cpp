@@ -11,7 +11,7 @@ namespace unit_converter {
         auto v = StrExt::split(str, '/');
 
         if ((v.size() == 1 && StrExt::find_term(str, "/")) || v.size() > 2 || v.empty()) {
-            throw std::runtime_error("Incorrect unit");
+            throw std::runtime_error("Incorrect unit 2");
         }
 
         return v;
@@ -24,8 +24,8 @@ namespace unit_converter {
 
         std::vector<std::string> v = StrExt::split(str, '^');
 
-        if (v.size() != 2 || StrExt::isFloat(v[1])) {
-            throw std::runtime_error("Incorrect unit");
+        if (v.size() != 2 || !StrExt::isInt(v[1])) {
+            throw std::runtime_error("Incorrect unit 1");
         }
 
         return {v[0], std::stoi(v[1])};
