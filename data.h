@@ -7,6 +7,7 @@
 #include <exception>
 
 #include "unit.h"
+#include "exception.h"
 
 
 #ifndef UNIT_CONVERTER_DATA_H

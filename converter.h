@@ -7,6 +7,7 @@
 
 #include "parser.h"
 #include "unit.h"
+#include "exception.h"
 
 #ifndef UNIT_CONVERTER_CONVERTER_H
 #define UNIT_CONVERTER_CONVERTER_H

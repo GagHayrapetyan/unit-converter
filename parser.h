@@ -10,6 +10,7 @@
 
 #include "unit.h"
 #include "data.h"
+#include "exception.h"
 
 
 #ifndef UNIT_CONVERTER_PARSER_H

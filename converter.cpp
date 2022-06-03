@@ -14,7 +14,7 @@ namespace unit_converter {
         _to = UnitParser::parse(_to_str);
 
         if (_from.is_same_dimension(_to)) {
-            throw std::runtime_error("Units are not of the same dimension !");
+            throw Exception("Units are not of the same dimension !");
         }
     }
 

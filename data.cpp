@@ -24,7 +24,7 @@ namespace unit_converter {
         auto it = UnitData::m.find(str);
 
         if (it == UnitData::m.end()) {
-            throw std::runtime_error("Unit not found");
+            throw Exception("Unit doesn't exist !");
         }
 
         return it->second;
