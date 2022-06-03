@@ -19,7 +19,7 @@ namespace unit_converter {
 
         friend std::ostream &operator<<(std::ostream &os, const Converter &obj);
 
-        double convert(double value);
+        double convert(double value, bool conversely = false);
 
     private:
         std::string _from_str;

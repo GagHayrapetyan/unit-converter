@@ -22,9 +22,14 @@ namespace unit_converter {
         return os << obj._from_str << " -> " << obj._to_str << std::endl;
     }
 
-    double Converter::convert(double value) {
-        _from.convert(value, Unit::Direction::TO_SI);
-        _to.convert(value, Unit::Direction::FROM_SI);
+    double Converter::convert(double value, bool conversely) {
+        if (conversely) {
+            value = _to.convert(value, Unit::Direction::TO_SI);
+            value = _from.convert(value, Unit::Direction::FROM_SI);
+        } else {
+            value = _from.convert(value, Unit::Direction::TO_SI);
+            value = _to.convert(value, Unit::Direction::FROM_SI);
+        }
 
         return value;
     }
