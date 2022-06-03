@@ -53,7 +53,7 @@ namespace unit_converter {
         auto it = UnitData::_unit_data.find(str);
 
         if (it == UnitData::_unit_data.end()) {
-            throw Exception("Unit doesn't exist !");
+            throw Exception("Unit " + str + " doesn't exist !");
         }
 
         return it->second;
