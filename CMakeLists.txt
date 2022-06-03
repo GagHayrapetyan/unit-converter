@@ -3,7 +3,7 @@ project(Example)
 
 set(CMAKE_CXX_STANDARD 17)
 
-add_executable(Example main.cpp)
+add_executable(Example example.cpp)
 
 add_subdirectory(src)
 target_include_directories(Example PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/src)
