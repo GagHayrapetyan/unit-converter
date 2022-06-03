@@ -160,4 +160,8 @@ namespace unit_converter {
         return value;
     }
 
+    bool MultiUnit::is_same_dimension(const MultiUnit &unit) {
+        return unit._si_unit != _si_unit;
+    }
+
 }

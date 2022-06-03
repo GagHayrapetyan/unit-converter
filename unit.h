@@ -90,6 +90,8 @@ namespace unit_converter {
 
         double convert(double value, Unit::Direction dir);
 
+        bool is_same_dimension(const MultiUnit &unit);
+
     private:
         SIUnits _si_unit;
         std::vector<std::pair<Unit::func_t, Operator>> _converter_funcs;
