@@ -57,15 +57,56 @@ namespace unit_converter {
         }
     }
 
+    void UnitParser::_operator(MultiUnit &mu, const UnitPrefix &u, const MultiUnit::Operator &op) {
+        if (op == MultiUnit::Operator::MULTIPLICATION) {
+            mu *= u;
+        } else if (op == MultiUnit::Operator::DIVISION) {
+            mu /= u;
+        }
+    }
+
     void UnitParser::_processing(MultiUnit &u, const std::vector<std::string> &v, MultiUnit::Operator op) {
         for (auto &i: v) {
             auto [unit_str, degree] = _parse_degree(i);
-            auto unit = *UnitData::find(unit_str);
+
+            auto unit = *_parse_unit(unit_str);
+            auto [e, prefix] = _parse_unit_parser(unit_str);
+
 
             for (auto j = 0; j < degree; j++) {
+                if (e) {
+                    _operator(u, *prefix, op);
+                }
+
                 _operator(u, unit, op);
             }
         }
     }
+
+    Unit *UnitParser::_parse_unit(std::string &str) {
+        Unit *unit = nullptr;
+
+        for (auto i = 0; i <= 2; i++) {
+            try {
+                unit = UnitData::find(str.substr(i, str.length()));
+            } catch (Exception &e) {
+                if (i == 2) {
+                    throw e.what();
+                }
+
+                continue;
+            }
+
+            str.erase(i, str.length());
+            break;
+        }
+
+        return unit;
+    }
+
+    std::pair<bool, UnitPrefix *> UnitParser::_parse_unit_parser(const std::string &str) {
+        return UnitData::find_prefix(str);
+    }
+
 
 }

@@ -23,7 +23,9 @@ namespace unit_converter {
         static MultiUnit parse(const std::string &str);
 
     private:
-        static void _operator(MultiUnit &mu, const Unit& u, const  MultiUnit::Operator &op);
+        static void _operator(MultiUnit &mu, const Unit &u, const MultiUnit::Operator &op);
+
+        static void _operator(MultiUnit &mu, const UnitPrefix &u, const MultiUnit::Operator &op);
 
         static void _processing(MultiUnit &u, const std::vector<std::string> &v, MultiUnit::Operator op);
 
@@ -32,6 +34,10 @@ namespace unit_converter {
         static std::vector<std::string> _split_by_multiplication(const std::string &str);
 
         static std::pair<std::string, std::uint8_t> _parse_degree(const std::string &str);
+
+        static std::pair<bool, UnitPrefix *> _parse_unit_parser(const std::string &str);
+
+        static Unit *_parse_unit(std::string &str);
 
     };
 
