@@ -19,6 +19,8 @@ namespace unit_converter {
     private:
         static std::map<std::string, Unit *> _unit_data;
 
+        static std::map<std::string, UnitPrefix *> _unit_prefix;
+
         static bool _is_exist(const std::string &symbol);
 
     public:
@@ -33,6 +35,8 @@ namespace unit_converter {
                                  double coefficient);
 
         static Unit *find(const std::string &str);
+
+        static std::pair<bool, UnitPrefix *> find_prefix(const std::string &str);
     };
 
 }

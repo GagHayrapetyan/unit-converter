@@ -6,6 +6,29 @@
 
 namespace unit_converter {
 
+    std::map<std::string, UnitPrefix *>  UnitData::_unit_prefix = {
+            {"y",  new UnitPrefix("y", "yocto", 1E-24)},
+            {"z",  new UnitPrefix("z", "zepto", 1E-21)},
+            {"a",  new UnitPrefix("a", "atto", 1E-18)},
+            {"f",  new UnitPrefix("f", "femto", 1E-15)},
+            {"p",  new UnitPrefix("p", "pico", 1E-12)},
+            {"n",  new UnitPrefix("n", "nano", 1E-9)},
+            {"µ",  new UnitPrefix("µ", "micro", 1E-6)},
+            {"m",  new UnitPrefix("m", "milli", 1E-3)},
+            {"c",  new UnitPrefix("c", "centi", 1E-2)},
+            {"d",  new UnitPrefix("d", "deci", 1E-1)},
+            {"da", new UnitPrefix("da", "deca", 1E+1)},
+            {"h",  new UnitPrefix("h", "hecto", 1E+2)},
+            {"k",  new UnitPrefix("k", "kilo", 1E+3)},
+            {"M",  new UnitPrefix("M", "mega", 1E+6)},
+            {"G",  new UnitPrefix("G", "giga", 1E+9)},
+            {"T",  new UnitPrefix("T", "tera", 1E+12)},
+            {"P",  new UnitPrefix("P", "peta", 1E+15)},
+            {"E",  new UnitPrefix("E", "exa", 1E+18)},
+            {"Z",  new UnitPrefix("Z", "zetta", 1E+21)},
+            {"Y",  new UnitPrefix("Y", "yotta", 1E+24)},
+    };
+
     std::map<std::string, Unit *>  UnitData::_unit_data = {
             {"m",    new Unit("m", "meter",
                               {.temperature=0, .length=1, .electric_current=0, .time=0, .mass=0, .amount_of_substance=0, .intensity=0})},
@@ -83,5 +106,11 @@ namespace unit_converter {
         auto it = UnitData::_unit_data.find(symbol);
 
         return it != UnitData::_unit_data.end();
+    }
+
+    std::pair<bool, UnitPrefix *> UnitData::find_prefix(const std::string &str) {
+        auto it = UnitData::_unit_prefix.find(str);
+
+        return {it != UnitData::_unit_prefix.end(), it->second};
     }
 }
