@@ -69,6 +69,15 @@ namespace unit_converter {
                                       v -= 273.15;
                                   }
                               })},
+            {"°F",   new Unit("°F", "fahrenheit",
+                              {.temperature=1, .length=0, .electric_current=0, .time=0, .mass=0, .amount_of_substance=0, .intensity=0},
+                              [](double &v, Unit::Direction dir) {
+                                  if (dir == Unit::Direction::TO_SI) {
+                                      v = double((v - 32) * 5) / 9 + 273.15;
+                                  } else {
+                                      v = double((v - 273.15) * 9) / 5 + 32;
+                                  }
+                              })},
 
     };
 

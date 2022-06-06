@@ -68,10 +68,8 @@ namespace unit_converter {
     void UnitParser::_processing(MultiUnit &u, const std::vector<std::string> &v, MultiUnit::Operator op) {
         for (auto &i: v) {
             auto [unit_str, degree] = _parse_degree(i);
-
             auto unit = *_parse_unit(unit_str);
             auto [e, prefix] = _parse_unit_parser(unit_str);
-
 
             for (auto j = 0; j < degree; j++) {
                 if (e) {
@@ -105,7 +103,13 @@ namespace unit_converter {
     }
 
     std::pair<bool, UnitPrefix *> UnitParser::_parse_unit_parser(const std::string &str) {
-        return UnitData::find_prefix(str);
+        auto [e, p] = UnitData::find_prefix(str);
+
+        if (!e && str.length() > 0) {
+            throw Exception("Unit doesn't exist !");
+        }
+
+        return {e, p};
     }
 
 
