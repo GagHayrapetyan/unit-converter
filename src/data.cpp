@@ -79,6 +79,9 @@ namespace unit_converter {
                                   }
                               })},
 
+            {"V",   new Unit("V", "volt",
+                              {.temperature=0, .length=2, .electric_current=0, .time=-3, .mass=1, .amount_of_substance=0, .intensity=-1})},
+
     };
 
     Unit *UnitData::find(const std::string &str) {
