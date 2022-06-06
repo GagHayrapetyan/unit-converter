@@ -30,38 +30,21 @@ namespace unit_converter {
     };
 
     std::map<std::string, Unit *>  UnitData::_unit_data = {
-            {"m",    new Unit("m", "meter",
-                              {.temperature=0, .length=1, .electric_current=0, .time=0, .mass=0, .amount_of_substance=0, .intensity=0})},
-            {"kg",   new Unit("kg", "kilogram",
-                              {.temperature=0, .length=0, .electric_current=0, .time=0, .mass=1, .amount_of_substance=0, .intensity=0})},
-            {"s",    new Unit("s", "second",
-                              {.temperature=0, .length=0, .electric_current=0, .time=1, .mass=0, .amount_of_substance=0, .intensity=0})},
-            {"A",    new Unit("A", "ampere",
-                              {.temperature=0, .length=0, .electric_current=1, .time=0, .mass=0, .amount_of_substance=0, .intensity=0})},
-            {"K",    new Unit("K", "kelvin",
-                              {.temperature=1, .length=0, .electric_current=0, .time=0, .mass=0, .amount_of_substance=0, .intensity=0})},
-            {"mol",  new Unit("mol", "mole",
-                              {.temperature=0, .length=0, .electric_current=0, .time=0, .mass=0, .amount_of_substance=1, .intensity=0})},
-            {"cd",   new Unit("cd", "candela",
-                              {.temperature=0, .length=0, .electric_current=0, .time=0, .mass=0, .amount_of_substance=0, .intensity=1})},
+            {"m",    new Unit("m", "meter", {.T=0, .l=1, .I=0, .t=0, .m=0, .n=0, .i=0})},
+            {"kg",   new Unit("kg", "kilogram", {.T=0, .l=0, .I=0, .t=0, .m=1, .n=0, .i=0})},
+            {"s",    new Unit("s", "second", {.T=0, .l=0, .I=0, .t=1, .m=0, .n=0, .i=0})},
+            {"A",    new Unit("A", "ampere", {.T=0, .l=0, .I=1, .t=0, .m=0, .n=0, .i=0})},
+            {"K",    new Unit("K", "kelvin", {.T=1, .l=0, .I=0, .t=0, .m=0, .n=0, .i=0})},
+            {"mol",  new Unit("mol", "mole", {.T=0, .l=0, .I=0, .t=0, .m=0, .n=1, .i=0})},
+            {"cd",   new Unit("cd", "candela", {.T=0, .l=0, .I=0, .t=0, .m=0, .n=0, .i=1})},
 
-            {"inch", new Unit("in", "inch",
-                              {.temperature=0, .length=1, .electric_current=0, .time=0, .mass=0, .amount_of_substance=0, .intensity=0},
-                              2.54E-2)},
-            {"km",   new Unit("km", "kilometer",
-                              {.temperature=0, .length=1, .electric_current=0, .time=0, .mass=0, .amount_of_substance=0, .intensity=0},
-                              1E+3)},
-            {"h",    new Unit("h", "hour",
-                              {.temperature=0, .length=0, .electric_current=0, .time=1, .mass=0, .amount_of_substance=0, .intensity=0},
-                              3600)},
-            {"Hz",   new Unit("Hz", "hertz",
-                              {.temperature=0, .length=0, .electric_current=0, .time=-1, .mass=0, .amount_of_substance=0, .intensity=0})},
-            {"N",    new Unit("N", "newton",
-                              {.temperature=0, .length=1, .electric_current=0, .time=-2, .mass=1, .amount_of_substance=0, .intensity=0})},
-            {"Pa",   new Unit("Pa", "pascal",
-                              {.temperature=0, .length=-1, .electric_current=0, .time=-2, .mass=1, .amount_of_substance=0, .intensity=0})},
-            {"°C",   new Unit("°C", "celsius",
-                              {.temperature=1, .length=0, .electric_current=0, .time=0, .mass=0, .amount_of_substance=0, .intensity=0},
+            {"inch", new Unit("in", "inch", {.T=0, .l=1, .I=0, .t=0, .m=0, .n=0, .i=0}, 2.54E-2)},
+            {"km",   new Unit("km", "kilometer", {.T=0, .l=1, .I=0, .t=0, .m=0, .n=0, .i=0}, 1E+3)},
+            {"h",    new Unit("h", "hour", {.T=0, .l=0, .I=0, .t=1, .m=0, .n=0, .i=0}, 3600)},
+            {"Hz",   new Unit("Hz", "hertz", {.T=0, .l=0, .I=0, .t=-1, .m=0, .n=0, .i=0})},
+            {"N",    new Unit("N", "newton", {.T=0, .l=1, .I=0, .t=-2, .m=1, .n=0, .i=0})},
+            {"Pa",   new Unit("Pa", "pascal", {.T=0, .l=-1, .I=0, .t=-2, .m=1, .n=0, .i=0})},
+            {"°C",   new Unit("°C", "celsius", {.T=1, .l=0, .I=0, .t=0, .m=0, .n=0, .i=0},
                               [](double &v, Unit::Direction dir) {
                                   if (dir == Unit::Direction::TO_SI) {
                                       v += 273.15;
@@ -69,8 +52,7 @@ namespace unit_converter {
                                       v -= 273.15;
                                   }
                               })},
-            {"°F",   new Unit("°F", "fahrenheit",
-                              {.temperature=1, .length=0, .electric_current=0, .time=0, .mass=0, .amount_of_substance=0, .intensity=0},
+            {"°F",   new Unit("°F", "fahrenheit", {.T=1, .l=0, .I=0, .t=0, .m=0, .n=0, .i=0},
                               [](double &v, Unit::Direction dir) {
                                   if (dir == Unit::Direction::TO_SI) {
                                       v = double((v - 32) * 5) / 9 + 273.15;
@@ -79,8 +61,7 @@ namespace unit_converter {
                                   }
                               })},
 
-            {"V",   new Unit("V", "volt",
-                              {.temperature=0, .length=2, .electric_current=0, .time=-3, .mass=1, .amount_of_substance=0, .intensity=-1})},
+            {"V",    new Unit("V", "volt", {.T=0, .l=2, .I=0, .t=-3, .m=1, .n=0, .i=-1})},
 
     };
 

@@ -8,49 +8,49 @@
 namespace unit_converter {
 
     SIUnits SIUnits::operator+=(const SIUnits &obj) {
-        temperature += obj.temperature;
-        length += obj.length;
-        electric_current += obj.electric_current;
-        time += obj.time;
-        mass += obj.mass;
-        amount_of_substance += obj.amount_of_substance;
-        intensity += obj.intensity;
+        T += obj.T;
+        i += obj.i;
+        I += obj.I;
+        t += obj.t;
+        m += obj.m;
+        n += obj.n;
+        i += obj.i;
 
         return *this;
     }
 
     SIUnits SIUnits::operator-=(const SIUnits &obj) {
-        temperature -= obj.temperature;
-        length -= obj.length;
-        electric_current += obj.electric_current;
-        time -= obj.time;
-        mass -= obj.mass;
-        amount_of_substance -= obj.amount_of_substance;
-        intensity -= obj.intensity;
+        T -= obj.T;
+        i -= obj.i;
+        I += obj.I;
+        t -= obj.t;
+        m -= obj.m;
+        n -= obj.n;
+        i -= obj.i;
 
         return *this;
     }
 
     SIUnits SIUnits::pow(const int &num) {
-        temperature += num;
-        length += num;
-        electric_current += num;
-        time += num;
-        mass += num;
-        amount_of_substance += num;
-        intensity += num;
+        T += num;
+        i += num;
+        I += num;
+        t += num;
+        m += num;
+        n += num;
+        i += num;
 
         return *this;
     }
 
     bool SIUnits::operator==(const SIUnits &obj) const {
-        return temperature == obj.temperature &&
-               length == obj.length &&
-               electric_current == obj.electric_current &&
-               time == obj.time &&
-               mass == obj.mass &&
-               amount_of_substance == obj.amount_of_substance &&
-               intensity == obj.intensity;
+        return T == obj.T &&
+               i == obj.i &&
+               I == obj.I &&
+               t == obj.t &&
+               m == obj.m &&
+               n == obj.n &&
+               i == obj.i;
     }
 
     bool SIUnits::operator!=(const SIUnits &obj) const {
@@ -58,8 +58,8 @@ namespace unit_converter {
     }
 
     std::ostream &operator<<(std::ostream &os, const SIUnits &obj) {
-        return os << obj.temperature << " " << obj.mass << " " << obj.amount_of_substance << " " << obj.electric_current
-                  << " " << obj.intensity << " " << obj.length << " " << obj.time << std::endl;
+        return os << obj.T << " " << obj.m << " " << obj.n << " " << obj.I
+                  << " " << obj.i << " " << obj.i << " " << obj.t << std::endl;
     }
 
 

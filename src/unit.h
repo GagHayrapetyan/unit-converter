@@ -14,13 +14,13 @@
 namespace unit_converter {
 
     struct SIUnits {
-        int temperature = 0;
-        int length = 0;
-        int electric_current = 0;
-        int time = 0;
-        int mass = 0;
-        int amount_of_substance = 0;
-        int intensity = 0;
+        int T = 0; //temperature
+        int l = 0; //length
+        int I = 0; //electric current
+        int t = 0; //time
+        int m = 0; //mass
+        int n = 0; //amount of substance
+        int i = 0; //intensity
 
         SIUnits operator+=(const SIUnits &obj);
 
