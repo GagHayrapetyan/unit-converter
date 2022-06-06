@@ -63,6 +63,16 @@ namespace unit_converter {
     }
 
 
+    UnitPrefix::UnitPrefix(const std::string &symbol,
+                           const std::string &name,
+                           double factor) : _symbol(symbol),
+                                            _name(name),
+                                            _factor(factor),
+                                            _func(converter(factor)) {
+
+    }
+
+
     Unit::Unit(const std::string &symbol,
                const std::string &name,
                SIUnits si_unit,
@@ -76,11 +86,11 @@ namespace unit_converter {
     Unit::Unit(const std::string &symbol,
                const std::string &name,
                SIUnits si_unit,
-               double coefficient) : Unit(symbol, name, si_unit, _converter(coefficient)) {
+               double coefficient) : Unit(symbol, name, si_unit, converter(coefficient)) {
 
     }
 
-    Unit::func_t Unit::_converter(double coefficient) {
+    Unit::func_t UnitInterface::converter(double coefficient) {
         return [coefficient](double &value, Direction op) {
             if (op == Direction::TO_SI) {
                 value *= coefficient;
@@ -117,8 +127,25 @@ namespace unit_converter {
         return *this;
     }
 
+    MultiUnit MultiUnit::operator*=(const UnitPrefix &obj) {
+        _converter_funcs.emplace_back(obj._func, Operator::MULTIPLICATION);
+
+        return *this;
+    }
+
+    MultiUnit MultiUnit::operator/=(const UnitPrefix &obj) {
+        _converter_funcs.emplace_back(obj._func, Operator::DIVISION);
+
+        return *this;
+    }
+
+    MultiUnit &MultiUnit::operator=(const UnitPrefix &obj) {
+        _converter_funcs.emplace_back(obj._func, Operator::MULTIPLICATION);
+
+        return *this;
+    }
+
     bool MultiUnit::operator==(const MultiUnit &obj) {
-//        std::cout << _si_unit << obj._si_unit;
         return _si_unit == obj._si_unit;
     }
 
@@ -163,5 +190,6 @@ namespace unit_converter {
     bool MultiUnit::is_same_dimension(const MultiUnit &unit) {
         return unit._si_unit != _si_unit;
     }
+
 
 }

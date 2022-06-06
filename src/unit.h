@@ -36,7 +36,7 @@ namespace unit_converter {
     };
 
 
-    class Unit {
+    class UnitInterface {
     public:
         enum class Direction {
             TO_SI,
@@ -45,6 +45,28 @@ namespace unit_converter {
 
         typedef std::function<void(double &, Direction)> func_t;
 
+        static func_t converter(double coefficient);
+    };
+
+
+    class UnitPrefix : public UnitInterface {
+    public:
+        UnitPrefix(const std::string &symbol,
+                   const std::string &name,
+                   double factor);
+
+    private:
+        std::string _symbol;
+        std::string _name;
+        double _factor;
+        func_t _func;
+
+        friend class MultiUnit;
+    };
+
+
+    class Unit : public UnitInterface {
+    public:
         Unit(const std::string &symbol,
              const std::string &name,
              SIUnits si_unit,
@@ -62,8 +84,6 @@ namespace unit_converter {
         std::string _name;
         SIUnits _si_unit;
         func_t _converter_funcs;
-
-        static func_t _converter(double coefficient);
 
         friend class MultiUnit;
     };
@@ -83,6 +103,12 @@ namespace unit_converter {
         MultiUnit operator*=(const Unit &obj);
 
         MultiUnit operator/=(const Unit &obj);
+
+        MultiUnit &operator=(const UnitPrefix &obj);
+
+        MultiUnit operator*=(const UnitPrefix &obj);
+
+        MultiUnit operator/=(const UnitPrefix &obj);
 
         bool operator==(const MultiUnit &obj);
 
