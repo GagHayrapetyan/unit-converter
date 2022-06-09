@@ -30,7 +30,7 @@ namespace unit_converter {
         static bool add_new_unit(std::string symbol,
                                  std::string name,
                                  SIUnits si_unit,
-                                 double coefficient);
+                                 double coefficient = 1);
 
         static Unit *find(const std::string &str);
 
