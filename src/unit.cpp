@@ -16,7 +16,7 @@ namespace unit_converter {
         t += obj.t;
         m += obj.m;
         n += obj.n;
-        i += obj.i;
+        l += obj.l;
 
         return *this;
     }
@@ -28,7 +28,7 @@ namespace unit_converter {
         t -= obj.t;
         m -= obj.m;
         n -= obj.n;
-        i -= obj.i;
+        l -= obj.l;
 
         return *this;
     }
@@ -40,7 +40,7 @@ namespace unit_converter {
         t += num;
         m += num;
         n += num;
-        i += num;
+        l += num;
 
         return *this;
     }
@@ -52,7 +52,7 @@ namespace unit_converter {
                t == obj.t &&
                m == obj.m &&
                n == obj.n &&
-               i == obj.i;
+               l == obj.l;
     }
 
     bool SIUnits::operator!=(const SIUnits &obj) const {
@@ -195,6 +195,8 @@ namespace unit_converter {
     }
 
     bool MultiUnit::is_same_dimension(const MultiUnit &unit) {
+        std::cout<<_si_unit<<std::endl;
+        std::cout<<unit._si_unit<<std::endl;
         return unit._si_unit != _si_unit;
     }
 
