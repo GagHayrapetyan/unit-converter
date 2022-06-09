@@ -41,7 +41,7 @@ namespace unit_converter {
             {"cd",  new Unit("cd", "candela", {.T=0, .l=0, .I=0, .t=0, .m=0, .n=0, .i=1})},
 
             {"Hz",  new Unit("Hz", "hertz", {.T=0, .l=0, .I=0, .t=-1, .m=0, .n=0, .i=0})},
-            {"N",   new Unit("N", "newton", {.T=0, .l=1, .I=0, .t=-2, .m=1, .n=0, .i=0})},
+            {"N",   new Unit("N", "newton", {.T=0, .l=0, .I=0, .t=0, .m=1, .n=0, .i=0}, 9.81)},
             {"Pa",  new Unit("Pa", "pascal", {.T=0, .l=-1, .I=0, .t=-2, .m=1, .n=0, .i=0})},
             {"J",   new Unit("J", "joule", {.T=0, .l=2, .I=0, .t=-2, .m=1, .n=0, .i=0})},
             {"W",   new Unit("W", "watt", {.T=0, .l=2, .I=0, .t=-3, .m=1, .n=0, .i=0})},
