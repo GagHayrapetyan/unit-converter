@@ -82,7 +82,7 @@ namespace unit_converter {
                                     _name(name),
                                     _si_unit(si_unit),
                                     _converter_funcs(func) {
-        UnitData::find(symbol);
+        UnitData::check_if_already_exists(symbol);
     }
 
 

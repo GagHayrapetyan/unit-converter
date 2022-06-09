@@ -131,4 +131,12 @@ namespace unit_converter {
 
         return {it != UnitData::_unit_prefix.end(), it->second};
     }
+
+    void UnitData::check_if_already_exists(const std::string &str) {
+        auto it = UnitData::_unit_data.find(str);
+
+        if (it != UnitData::_unit_data.end()) {
+            throw Exception("Unit " + str + " already exist !");
+        }
+    }
 }

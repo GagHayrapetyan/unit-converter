@@ -35,6 +35,8 @@ namespace unit_converter {
         static Unit *find(const std::string &str);
 
         static std::pair<bool, UnitPrefix *> find_prefix(const std::string &str);
+
+        static void check_if_already_exists(const std::string &str);
     };
 
 }
