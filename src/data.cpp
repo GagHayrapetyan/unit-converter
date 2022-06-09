@@ -2,6 +2,8 @@
 // Created by Gag Hayrapetyan on 02.06.2022.
 //
 
+#include "unit.h"
+
 #include "data.h"
 
 namespace unit_converter {

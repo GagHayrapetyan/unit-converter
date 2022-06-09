@@ -5,6 +5,8 @@
 
 #include "unit.h"
 
+#include "data.h"
+
 namespace unit_converter {
 
     SIUnits SIUnits::operator+=(const SIUnits &obj) {
@@ -80,6 +82,7 @@ namespace unit_converter {
                                     _name(name),
                                     _si_unit(si_unit),
                                     _converter_funcs(func) {
+        UnitData::find(symbol);
     }
 
 
