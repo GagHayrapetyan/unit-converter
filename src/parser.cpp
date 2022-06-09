@@ -84,12 +84,13 @@ namespace unit_converter {
     Unit *UnitParser::_parse_unit(std::string &str) {
         Unit *unit = nullptr;
 
-        for (auto i = 0; i <= 2; i++) {
+        for (auto i = 0; i <= std::min(2, int(str.length())); i++) {
             try {
-                unit = UnitData::find(str.substr(i, str.length()));
+                auto s = str.substr(i, str.length());
+                unit = UnitData::find(s);
             } catch (Exception &e) {
-                if (i == 2) {
-                    throw e.what();
+                if (i == std::min(2, int(str.length()))) {
+                    throw Exception(e.what());
                 }
 
                 continue;
