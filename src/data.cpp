@@ -30,39 +30,62 @@ namespace unit_converter {
     };
 
     std::map<std::string, Unit *>  UnitData::_unit_data = {
-            {"m",    new Unit("m", "meter", {.T=0, .l=1, .I=0, .t=0, .m=0, .n=0, .i=0})},
-            {"kg",   new Unit("kg", "kilogram", {.T=0, .l=0, .I=0, .t=0, .m=1, .n=0, .i=0})},
-            {"s",    new Unit("s", "second", {.T=0, .l=0, .I=0, .t=1, .m=0, .n=0, .i=0})},
-            {"A",    new Unit("A", "ampere", {.T=0, .l=0, .I=1, .t=0, .m=0, .n=0, .i=0})},
-            {"K",    new Unit("K", "kelvin", {.T=1, .l=0, .I=0, .t=0, .m=0, .n=0, .i=0})},
-            {"mol",  new Unit("mol", "mole", {.T=0, .l=0, .I=0, .t=0, .m=0, .n=1, .i=0})},
-            {"cd",   new Unit("cd", "candela", {.T=0, .l=0, .I=0, .t=0, .m=0, .n=0, .i=1})},
+            {"m",   new Unit("m", "meter", {.T=0, .l=1, .I=0, .t=0, .m=0, .n=0, .i=0})},
+            {"kg",  new Unit("kg", "kilogram", {.T=0, .l=0, .I=0, .t=0, .m=1, .n=0, .i=0})},
+            {"s",   new Unit("s", "second", {.T=0, .l=0, .I=0, .t=1, .m=0, .n=0, .i=0})},
+            {"A",   new Unit("A", "ampere", {.T=0, .l=0, .I=1, .t=0, .m=0, .n=0, .i=0})},
+            {"K",   new Unit("K", "kelvin", {.T=1, .l=0, .I=0, .t=0, .m=0, .n=0, .i=0})},
+            {"mol", new Unit("mol", "mole", {.T=0, .l=0, .I=0, .t=0, .m=0, .n=1, .i=0})},
+            {"cd",  new Unit("cd", "candela", {.T=0, .l=0, .I=0, .t=0, .m=0, .n=0, .i=1})},
 
-            {"inch", new Unit("in", "inch", {.T=0, .l=1, .I=0, .t=0, .m=0, .n=0, .i=0}, 2.54E-2)},
-            {"km",   new Unit("km", "kilometer", {.T=0, .l=1, .I=0, .t=0, .m=0, .n=0, .i=0}, 1E+3)},
-            {"h",    new Unit("h", "hour", {.T=0, .l=0, .I=0, .t=1, .m=0, .n=0, .i=0}, 3600)},
-            {"Hz",   new Unit("Hz", "hertz", {.T=0, .l=0, .I=0, .t=-1, .m=0, .n=0, .i=0})},
-            {"N",    new Unit("N", "newton", {.T=0, .l=1, .I=0, .t=-2, .m=1, .n=0, .i=0})},
-            {"Pa",   new Unit("Pa", "pascal", {.T=0, .l=-1, .I=0, .t=-2, .m=1, .n=0, .i=0})},
-            {"°C",   new Unit("°C", "celsius", {.T=1, .l=0, .I=0, .t=0, .m=0, .n=0, .i=0},
-                              [](double &v, Unit::Direction dir) {
-                                  if (dir == Unit::Direction::TO_SI) {
-                                      v += 273.15;
-                                  } else {
-                                      v -= 273.15;
-                                  }
-                              })},
-            {"°F",   new Unit("°F", "fahrenheit", {.T=1, .l=0, .I=0, .t=0, .m=0, .n=0, .i=0},
-                              [](double &v, Unit::Direction dir) {
-                                  if (dir == Unit::Direction::TO_SI) {
-                                      v = double((v - 32) * 5) / 9 + 273.15;
-                                  } else {
-                                      v = double((v - 273.15) * 9) / 5 + 32;
-                                  }
-                              })},
+            {"Hz",  new Unit("Hz", "hertz", {.T=0, .l=0, .I=0, .t=-1, .m=0, .n=0, .i=0})},
+            {"N",   new Unit("N", "newton", {.T=0, .l=1, .I=0, .t=-2, .m=1, .n=0, .i=0})},
+            {"Pa",  new Unit("Pa", "pascal", {.T=0, .l=-1, .I=0, .t=-2, .m=1, .n=0, .i=0})},
+            {"J",   new Unit("J", "joule", {.T=0, .l=2, .I=0, .t=-2, .m=1, .n=0, .i=0})},
+            {"W",   new Unit("W", "watt", {.T=0, .l=2, .I=0, .t=-3, .m=1, .n=0, .i=0})},
+            {"C",   new Unit("C", "coulomb", {.T=0, .l=0, .I=1, .t=1, .m=0, .n=0, .i=0})},
+            {"V",   new Unit("V", "volt", {.T=0, .l=2, .I=-1, .t=-3, .m=1, .n=0, .i=0})},
+            {"Ω",   new Unit("Ω", "ohm", {.T=0, .l=2, .I=-2, .t=-3, .m=1, .n=0, .i=0})},
+            {"S",   new Unit("S", "siemens", {.T=0, .l=-2, .I=2, .t=3, .m=-1, .n=0, .i=0})},
+            {"F",   new Unit("F", "farad", {.T=0, .l=-2, .I=2, .t=4, .m=-1, .n=0, .i=0})},
+            {"T",   new Unit("T", "tesla", {.T=0, .l=0, .I=-1, .t=-2, .m=1, .n=0, .i=0})},
+            {"Wb",  new Unit("Wb", "weber", {.T=0, .l=2, .I=-1, .t=-2, .m=1, .n=0, .i=0})},
+            {"H",   new Unit("H", "henry", {.T=0, .l=2, .I=-2, .t=-2, .m=1, .n=0, .i=0})},
+            {"°C",  new Unit("°C", "celsius", {.T=1, .l=0, .I=0, .t=0, .m=0, .n=0, .i=0},
+                             [](double &v, Unit::Direction dir) {
+                                 if (dir == Unit::Direction::TO_SI) {
+                                     v += 273.15;
+                                 } else {
+                                     v -= 273.15;
+                                 }
+                             })},
+            {"lm",  new Unit("lm", "lumen", {.T=0, .l=0, .I=0, .t=0, .m=0, .n=0, .i=1})},
+            {"lx",  new Unit("lx", "lux", {.T=0, .l=-2, .I=0, .t=0, .m=0, .n=0, .i=1})},
+            {"Bq",  new Unit("Bq", "becquerel", {.T=0, .l=0, .I=0, .t=-1, .m=0, .n=0, .i=0})},
+            {"Gy",  new Unit("Gy", "gray", {.T=0, .l=2, .I=0, .t=-2, .m=0, .n=0, .i=0})},
+            {"Sv",  new Unit("Sv", "sievert", {.T=0, .l=2, .I=0, .t=-2, .m=0, .n=0, .i=0})},
+            {"kat", new Unit("kat", "katal", {.T=0, .l=0, .I=0, .t=-1, .m=0, .n=1, .i=0})},
 
-            {"V",    new Unit("V", "volt", {.T=0, .l=2, .I=0, .t=-3, .m=1, .n=0, .i=-1})},
+            {"°F",  new Unit("°F", "fahrenheit", {.T=1, .l=0, .I=0, .t=0, .m=0, .n=0, .i=0},
+                             [](double &v, Unit::Direction dir) {
+                                 if (dir == Unit::Direction::TO_SI) {
+                                     v = double((v - 32) * 5) / 9 + 273.15;
+                                 } else {
+                                     v = double((v - 273.15) * 9) / 5 + 32;
+                                 }
+                             })},
+            {"th",  new Unit("th", "thou", {.T=0, .l=1, .I=0, .t=0, .m=0, .n=0, .i=0}, 2.54E-5)},
+            {"in",  new Unit("in", "inch", {.T=0, .l=1, .I=0, .t=0, .m=0, .n=0, .i=0}, 2.54E-2)},
+            {"ft",  new Unit("ft", "foot", {.T=0, .l=1, .I=0, .t=0, .m=0, .n=0, .i=0}, 3.048E-1)},
+            {"yd",  new Unit("yd", "yard", {.T=0, .l=1, .I=0, .t=0, .m=0, .n=0, .i=0}, 9.144E-1)},
+            {"ch",  new Unit("ch", "chain", {.T=0, .l=1, .I=0, .t=0, .m=0, .n=0, .i=0}, 20.1168)},
+            {"fur", new Unit("fur", "furlong", {.T=0, .l=1, .I=0, .t=0, .m=0, .n=0, .i=0}, 20.1168)},
+            {"ml",  new Unit("ml", "mile", {.T=0, .l=1, .I=0, .t=0, .m=0, .n=0, .i=0}, 1609.344)},
+            {"lea", new Unit("lea", "league", {.T=0, .l=1, .I=0, .t=0, .m=0, .n=0, .i=0}, 4828.032)},
 
+            {"bar", new Unit("bar", "bar", {.T=0, .l=-1, .I=0, .t=-2, .m=1, .n=0, .i=0}, 1E5)},
+            {"min", new Unit("min", "minute", {.T=0, .l=0, .I=0, .t=1, .m=0, .n=0, .i=0}, 60)},
+            {"h",   new Unit("h", "hour", {.T=0, .l=0, .I=0, .t=1, .m=0, .n=0, .i=0}, 3600)},
     };
 
     Unit *UnitData::find(const std::string &str) {
