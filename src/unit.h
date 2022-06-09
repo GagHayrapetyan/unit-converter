@@ -79,6 +79,8 @@ namespace unit_converter {
 
         Unit(const Unit &obj) = default;
 
+        friend std::ostream &operator<<(std::ostream &os, const Unit &obj);
+
     private:
         std::string _symbol;
         std::string _name;

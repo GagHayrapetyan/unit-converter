@@ -61,7 +61,7 @@ namespace unit_converter {
 
     std::ostream &operator<<(std::ostream &os, const SIUnits &obj) {
         return os << obj.T << " " << obj.m << " " << obj.n << " " << obj.I
-                  << " " << obj.i << " " << obj.i << " " << obj.t << std::endl;
+                  << " " << obj.l << " " << obj.i << " " << obj.t << std::endl;
     }
 
 
@@ -91,6 +91,10 @@ namespace unit_converter {
                SIUnits si_unit,
                double coefficient) : Unit(symbol, name, si_unit, converter(coefficient)) {
 
+    }
+
+    std::ostream &operator<<(std::ostream &os, const Unit &obj) {
+        return os << obj._si_unit << std::endl;
     }
 
     Unit::func_t UnitInterface::converter(double coefficient) {
